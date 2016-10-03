@@ -27,9 +27,12 @@ class CategoricalPolicy(object):
         Sample solution is about 2~4 lines.
         """
         # YOUR CODE HERE >>>>>>
-        # probs = ???
+		# Andrew
+		var = {}
+		self.h1, self.var['l1_w'], self.var['l1_b'] = linear(self._observations, hidden_dim, activation_fn=tf.tanh, batch_norm=False, name='l1')
+		self.h2, self.var['l2_w'], self.var['l2_b'] = linear(self.h1, self._actions, activation_fn=tf.tanh, batch_norm=False, name='l2')
+		probs = tf.nn.softmax(self.h2)
         # <<<<<<<<
-
         # --------------------------------------------------
         # This operation (variable) is used when choosing action during data sampling phase
         # Shape of probs: [1, n_actions]
