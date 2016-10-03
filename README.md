@@ -18,7 +18,9 @@ A reward of +1 is provided for every timestep that the pendulum remains upright.
 * Scipy
 * IPython Notebook
 
-The preferred approach for installing above dependencies is to use [Anaconda](https://www.continuum.io/downloads), which is a Python distribution that includes many of the most popular Python packages for science, math, engineering and data analysis.
+**If you already have some of above libraries installed, try to manage the dependencies by yourself.**
+
+If you are using a new environment (may be virtual), the preferred approach for installing above dependencies is to use [Anaconda](https://www.continuum.io/downloads), which is a Python distribution that includes many of the most popular Python packages for science, math, engineering and data analysis.
 
 1. **Install Anaconda**: Follow the instructions on the [Anaconda download site](https://www.continuum.io/downloads).
 2. **Install TensorFlow**: See [anaconda section](https://www.tensorflow.org/versions/r0.11/get_started/os_setup.html#anaconda-installation) of TensorFlow installation page.
