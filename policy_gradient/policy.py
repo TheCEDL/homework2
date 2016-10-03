@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import pdb
 
 class CategoricalPolicy(object):
     def __init__(self, in_dim, out_dim, hidden_dim, optimizer, session):
@@ -28,17 +29,20 @@ class CategoricalPolicy(object):
         """
         # YOUR CODE HERE >>>>>>
 		# Andrew
-		var = {}
-		self.h1, self.var['l1_w'], self.var['l1_b'] = linear(self._observations, hidden_dim, activation_fn=tf.tanh, batch_norm=False, name='l1')
-		self.h2, self.var['l2_w'], self.var['l2_b'] = linear(self.h1, self._actions, activation_fn=tf.tanh, batch_norm=False, name='l2')
-		probs = tf.nn.softmax(self.h2)
+        self.var = {}
+        self.var['l1_W'] = tf.get_variable('l1_W', [in_dim, hidden_dim], tf.float32)
+        self.var['l1_b'] = tf.get_variable('l1_b', [hidden_dim], tf.float32)
+        self.var['l2_W'] = tf.get_variable('l2_W', [hidden_dim, out_dim], tf.float32)
+        self.var['l2_b'] = tf.get_variable('l2_b', [out_dim], tf.float32)
+
+        self.h1 = tf.tanh(tf.nn.bias_add(tf.matmul(self._observations, self.var['l1_W']), self.var['l1_b']))
+        self.h2 = tf.nn.bias_add(tf.matmul(self.h1, self.var['l2_W']), self.var['l2_b'])
+        probs = tf.nn.softmax(self.h2)
         # <<<<<<<<
         # --------------------------------------------------
         # This operation (variable) is used when choosing action during data sampling phase
         # Shape of probs: [1, n_actions]
-
         act_op = probs[0, :]
-
         # --------------------------------------------------
         # Following operations (variables) are used when updating model
         # Shape of probs: [n_timestep_per_iter, n_actions]
@@ -60,7 +64,6 @@ class CategoricalPolicy(object):
 
         # Add 1e-8 to `probs_vec` so as to prevent log(0) error
         log_prob = tf.log(probs_vec + 1e-8)
-
         """
         Problem 2:
 
@@ -72,7 +75,7 @@ class CategoricalPolicy(object):
         Sample solution is about 1~3 lines.
         """
         # YOUR CODE HERE >>>>>>
-        # surr_loss = ???
+        surr_loss = tf.reduce_mean(tf.mul(log_prob, self._advantages))
         # <<<<<<<<
 
         grads_and_vars = self._opt.compute_gradients(surr_loss)
