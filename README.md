@@ -46,8 +46,8 @@ Feel free to skip these materials if you are already familiar with these librari
 * [**+30**] Compute the surrogate loss
 * [**+20**] Compute the accumulated discounted rewards at each timestep
 * [**+10**] Use baseline to reduce the variance
-* [**+20**] Modify the code and write a report to compare the variance and performance before and after adding baseline (with figures is better)
-* [**BONUS +10**] In function `process_paths` of class `PolicyOptimizer`, why we need to normalize the advantages?
+* [**+10**] Modify the code and write a report to compare the variance and performance before and after adding baseline (with figures is better)
+* [**+10**] In function `process_paths` of class `PolicyOptimizer`, why we need to normalize the advantages?
   i.e., what's the usage of this line: 
   
   `p["advantages"] = (a - a.mean()) / (a.std() + 1e-8)`
