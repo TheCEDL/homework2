@@ -55,6 +55,6 @@ Feel free to skip these materials if you are already familiar with these librari
   Include the answer in your report
 
 # Other
-* Office hour 2-3 pm in 資電館 with [YenChen Lin](www.yclin.me).
+* Office hour 2-3 pm in 資電館 with [YenChen Lin](http://yclin.me/).
 * Due on Oct. 17 before class.
 
