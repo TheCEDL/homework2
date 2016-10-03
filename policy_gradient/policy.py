@@ -11,19 +11,19 @@ class CategoricalPolicy(object):
 
         self._opt = optimizer
         self._sess = session
-        
+
         """
         Problem 1:
-        
+
         1. Use TensorFlow to construct a 2-layer neural network as stochastic policy.
-           Each layer should be fully-connected and have size `hidden_dim`.
+           The hidden layer should be fully-connected and have size `hidden_dim`.
            Use tanh as the activation function of the first hidden layer, and append softmax layer after the output
            of the neural network to get the probability of each possible action.
-        
+
         2. Assign the output of the softmax layer to the variable `probs`.
            Let's assume n_batch equals to `self._observations.get_shape()[0]`,
            then shape of the variable `probs` should be [n_batch, n_actions].
-           
+
         Sample solution is about 2~4 lines.
         """
         # YOUR CODE HERE >>>>>>
@@ -33,7 +33,7 @@ class CategoricalPolicy(object):
         # --------------------------------------------------
         # This operation (variable) is used when choosing action during data sampling phase
         # Shape of probs: [1, n_actions]
-        
+
         act_op = probs[0, :]
 
         # --------------------------------------------------
@@ -57,15 +57,15 @@ class CategoricalPolicy(object):
 
         # Add 1e-8 to `probs_vec` so as to prevent log(0) error
         log_prob = tf.log(probs_vec + 1e-8)
-        
+
         """
         Problem 2:
-        
+
         1. Trace the code above
-        2. Currently, variable `self._advantages` represents accumulated discounted rewards 
-           from each timestep to the end of an episode 
+        2. Currently, variable `self._advantages` represents accumulated discounted rewards
+           from each timestep to the end of an episode
         3. Compute surrogate loss and assign it to variable `surr_loss`
-           
+
         Sample solution is about 1~3 lines.
         """
         # YOUR CODE HERE >>>>>>
@@ -78,7 +78,7 @@ class CategoricalPolicy(object):
         # --------------------------------------------------
         # This operation (variable) is used when choosing action during data sampling phase
         self._act_op = act_op
-        
+
         # --------------------------------------------------
         # These operations (variables) are used when updating model
         self._loss_op = surr_loss
@@ -88,13 +88,13 @@ class CategoricalPolicy(object):
         # expect observation to be of shape [1, observation_space]
         assert observation.shape[0] == 1
         action_probs = self._sess.run(self._act_op, feed_dict={self._observations: observation})
-        
+
         # `action_probs` is an array that has shape [1, action_space], it contains the probability of each action
         # sample an action according to `action_probs`
         cs = np.cumsum(action_probs)
         idx = sum(cs < np.random.rand())
         return idx
-    
+
     def train(self, observations, actions, advantages):
         loss, _ = self._sess.run([self._loss_op, self._train_op], feed_dict={self._observations:observations, self._actions:actions, self._advantages:advantages})
         return loss
