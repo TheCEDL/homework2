@@ -29,15 +29,9 @@ class CategoricalPolicy(object):
         """
         # YOUR CODE HERE >>>>>>
 		# Andrew
-        self.var = {}
-        self.var['l1_W'] = tf.get_variable('l1_W', [in_dim, hidden_dim], tf.float32)
-        self.var['l1_b'] = tf.get_variable('l1_b', [hidden_dim], tf.float32)
-        self.var['l2_W'] = tf.get_variable('l2_W', [hidden_dim, out_dim], tf.float32)
-        self.var['l2_b'] = tf.get_variable('l2_b', [out_dim], tf.float32)
-
-        self.h1 = tf.tanh(tf.nn.bias_add(tf.matmul(self._observations, self.var['l1_W']), self.var['l1_b']))
-        self.h2 = tf.nn.bias_add(tf.matmul(self.h1, self.var['l2_W']), self.var['l2_b'])
-        probs = tf.nn.softmax(self.h2)
+        h1 = tf.contrib.layers.fully_connected(self._observations, num_outputs=hidden_dim, activation_fn=tf.tanh)
+        h2 = tf.contrib.layers.fully_connected(h1, num_outputs=out_dim, activation_fn=None)
+        probs = tf.nn.softmax(h2)	# (None,out_dim)
         # <<<<<<<<
         # --------------------------------------------------
         # This operation (variable) is used when choosing action during data sampling phase
@@ -78,9 +72,10 @@ class CategoricalPolicy(object):
         surr_loss = tf.reduce_mean(tf.mul(log_prob, self._advantages))
         # <<<<<<<<
 
-        grads_and_vars = self._opt.compute_gradients(surr_loss)
-        train_op = self._opt.apply_gradients(grads_and_vars, name="train_op")
-
+        #grads_and_vars = self._opt.compute_gradients(surr_loss)
+        #train_op = self._opt.apply_gradients(grads_and_vars, name="train_op")
+		
+        train_op  =self._opt.minimize(-surr_loss)
         # --------------------------------------------------
         # This operation (variable) is used when choosing action during data sampling phase
         self._act_op = act_op
