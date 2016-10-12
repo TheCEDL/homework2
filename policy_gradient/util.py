@@ -19,7 +19,13 @@ Problem 3:
 Sample solution is about 1~7 lines.
 """
 
-# def discount_cumsum(x, discount_rate):
+def discount_cumsum(x, discount_rate):
     # YOUR CODE HERE >>>>>>
+    # print(x)
+    y = np.zeros(len(x))
+    for i in range(len(x)):
+        for j in range(i, len(x)):
+            y[i] = y[i] + (x[j]*(discount_rate**(j-i)))
+    return y    
     # return ???
     # <<<<<<<<
