@@ -1,5 +1,6 @@
 from gym.spaces import Box, Discrete
 import numpy as np
+import copy
 from scipy.signal import lfilter
 
 def flatten_space(space):
@@ -19,7 +20,11 @@ Problem 3:
 Sample solution is about 1~7 lines.
 """
 
-# def discount_cumsum(x, discount_rate):
+def discount_cumsum(x, discount_rate):
     # YOUR CODE HERE >>>>>>
     # return ???
+	out = copy.copy(x)
+	for i in range(2,len(x)+1):
+		out[-i] = out[-i] + out[-i+1]*discount_rate
+	return out
     # <<<<<<<<
