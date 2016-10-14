@@ -29,7 +29,13 @@ class CategoricalPolicy(object):
         # YOUR CODE HERE >>>>>>
         # probs = ???
         # <<<<<<<<
-
+        
+        #W1 = tf.Variable(tf.zeros([in_dim, hidden_dim]))
+        #W2 = tf.Variable(tf.zeros([hidden_dim, out_dim]))
+        #h1_result = tf.tanh(tf.matmul(self._observations, W1))
+        #probs=tf.nn.softmax(tf.matmul(h1_result,W2))
+        h1 = tf.contrib.layers.fully_connected(self._observations, hidden_dim, activation_fn=tf.tanh)
+        probs = tf.contrib.layers.fully_connected(h1, out_dim, activation_fn=tf.nn.softmax)
         # --------------------------------------------------
         # This operation (variable) is used when choosing action during data sampling phase
         # Shape of probs: [1, n_actions]
@@ -70,6 +76,7 @@ class CategoricalPolicy(object):
         """
         # YOUR CODE HERE >>>>>>
         # surr_loss = ???
+        surr_loss = -tf.reduce_mean(log_prob * self._advantages)
         # <<<<<<<<
 
         grads_and_vars = self._opt.compute_gradients(surr_loss)
