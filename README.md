@@ -1,3 +1,4 @@
+#組員:張嘉哲、林暘竣
 # Homework2 - Policy Gradient 
 Please complete each homework for each team, and <br>
 mention who contributed which parts in your report.
