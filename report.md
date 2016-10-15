@@ -39,3 +39,12 @@ Here I compare the result of with/without variance reduction:
 |---|---|
 |<img src="https://github.com/andrewliao11/homework2/blob/master/with_variance_reduce_max.png?raw=true" width="700">|<img src="https://github.com/andrewliao11/homework2/blob/master/without_variance_reduce_max.png?raw=true" width="700">|
 
+- Problem 6:
+The reseaon why we need to standardize the advantage function is that when we calculate the accumulated reward, the immediate reward that we get is exponentially discounted by the discounted factor. This action in latter stage can't learn effeciently. So, If we standardize the advantage function over time steps, it's expected that we always encourage and discourage half of actions (since we substract the mean). 
+
+## Reference 
+[Deep Reinforcement Learning: Pong from Pixels](karpathy.github.io/2016/05/31/rl/)
+
+
+
+
