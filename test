@@ -1,0 +1,4 @@
+#!/bin/bash
+python HW2_Policy_Graident.py
+python HW2_Policy_Graident.py
+python HW2_Policy_Graident.py

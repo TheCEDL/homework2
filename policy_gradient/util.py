@@ -10,16 +10,6 @@ def flatten_space(space):
 	else:
 		raise ValueError("Env must be either Box or Discrete.")
 
-"""
-Problem 3:
-
-1. Read the example provided in HW2_Policy_Graident.ipynb
-2. Uncomment below function and implement it.
-
-Sample solution is about 1~7 lines.
-"""
-
-# def discount_cumsum(x, discount_rate):
-    # YOUR CODE HERE >>>>>>
-    # return ???
-    # <<<<<<<<
+def discount_cumsum(x, discount_rate):
+    discount_array = np.power(discount_rate, np.arange(len(x)+1))
+    return [sum(x[i:] * discount_array[:-i-1]) for i in range(len(x))]
