@@ -1,7 +1,7 @@
 # Policy gradient report
+Implement a simple agent with REINFORCE algorithm, which uses the MC sampling and policy gradient.   
 
 ## Problem 1~4
-Implement a simple agent with REINFORCE algorithm, which uses the MC sampling and policy gradient.   
 
 - Problem 1: construct a simple two layer FC layer for policy prediction 
 
@@ -46,8 +46,12 @@ Here I compare the result of with/without variance reduction:
 |With baseline|Wihtout baseline|
 |---|---|
 |<img src="https://github.com/andrewliao11/homework2/blob/master/with_variance_reduce_max.png?raw=true" width="700">|<img src="https://github.com/andrewliao11/homework2/blob/master/without_variance_reduce_max.png?raw=true" width="700">|
+<p align="center">X-axis: iteration, Y-axis: return reward</p>
+
 This figure implies the variance of the case with and without baseline. I run each case for 10 times and record the return reward over each iteration(if the game reaches over 195, the game terminates). The solid line denotes the average return reward through iteration. The upper line implies the max return reward in that iteration, while the lower line implies the min retrun reward in that iteration.   
-P.S. The result is not quite apparent, and I guess that I should run the games for 100 iteration(fixed iteration) for the 10 gmaes and plot the figure
+**P.S.** The result is not quite apparent, and I guess that I should run the games for 100 iteration(fixed iteration) for the 10 gmaes and plot the figure   
+**P.S.** Why we need these variance reduction? Here, we're using REINFORCE, which is known to be with high variance (highly depends on your initial samples)   
+**P.S.** Actually, the results highly depends on the initial parameter. If the initial return reward is around 30, the agent can reach 195 around 70 iterations; If the initial return reward is around 15, it'll take about 100 iterartion to reach 195.
 
 ## Problem 6
 
