@@ -1,3 +1,5 @@
+#組員
+張嘉哲、林暘竣 <br>
 #problem 1
 solution: <br>
 fc_w1 = tf.get_variable("fc_w1",[in_dim, hidden_dim]) <br>
