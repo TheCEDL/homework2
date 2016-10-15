@@ -2,16 +2,7 @@
 Please complete each homework for each team, and <br>
 mention who contributed which parts in your report.
 
-# Introduction
-In this assignment, we will solve the classic control problem - CartPole.
-
-<img src="https://cloud.githubusercontent.com/assets/7057863/19025154/dd94466c-8946-11e6-977f-2db4ce478cf3.gif" width="400" height="200" />
-
-CartPole is an environment which contains a pendulum attached by an un-actuated joint to a cart, 
-and the goal is to prevent it from falling over. You can apply a force of +1 or -1 to the cart.
-A reward of +1 is provided for every timestep that the pendulum remains upright.
-
-# Our report of this paper
+# Our report of this assignment
 We present our report as a <a href="CEDL_HW2_Report.pdf">pdf file</a>.
 
 # Problem 5
