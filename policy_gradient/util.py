@@ -19,7 +19,14 @@ Problem 3:
 Sample solution is about 1~7 lines.
 """
 
-# def discount_cumsum(x, discount_rate):
+#def discount_cumsum(x, discount_rate):
     # YOUR CODE HERE >>>>>>
     # return ???
     # <<<<<<<<
+    
+def discount_cumsum(x, discount_rate):
+    result=x.astype(float)
+    for index in range(1,len(x)):
+        result[index]=result[index-1]+x[index]*pow(discount_rate,index)
+    
+    return result[::-1]
