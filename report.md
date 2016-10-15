@@ -26,15 +26,15 @@ solution: <br>
 
 #problem 5
 The policy gradient has high variance. <br>
-If we subtract a baselne from policy gradient, this way can reduce variance. (with some bias) <br>v
+If we subtract a baselne from policy gradient, this way can reduce variance. (with some bias) <br>
 
 #problem 6
 We use a discount reward. <br>
 This method is the weighted sum of all rewards afterwards, <br>
 but the later rewards are less important. <br>
 One good method is to “standardize” these returns <br>
-  -subtract mean
-  -divide by standard deviation
+  -subtract mean <br>
+  -divide by standard deviation <br>
 This way we’re always encouraging and discouraging roughly half of the performed actions. <br>
 
 #Reference
