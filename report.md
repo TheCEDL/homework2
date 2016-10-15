@@ -38,7 +38,10 @@ Here I compare the result of with/without variance reduction:
 |With baseline|Wihtout baseline|
 |---|---|
 |<img src="https://github.com/andrewliao11/homework2/blob/master/with_variance_reduce_max.png?raw=true" width="700">|<img src="https://github.com/andrewliao11/homework2/blob/master/without_variance_reduce_max.png?raw=true" width="700">|
-
+This figure implies the variance of the case with and without baseline. I run each case for 10 times and record the return reward over each iteration(if the game reaches over 195, the game terminates). The solid line denotes the average return reward through iteration. The upper line implies the max return reward in that iteration, while the lower line implies the min retrun reward in that iteration.
+	
+  - The result is not quite apparent, and I guess that I should run the games for 100 iteration(fixed iteration) for the 10 gmaes and plot the figure
+	
 - Problem 6:
 The reseaon why we need to standardize the advantage function is that when we calculate the accumulated reward, the immediate reward that we get is exponentially discounted by the discounted factor. This action in latter stage can't learn effeciently. So, If we standardize the advantage function over time steps, it's expected that we always encourage and discourage half of actions (since we substract the mean). 
 
