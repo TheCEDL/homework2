@@ -29,7 +29,8 @@ class CategoricalPolicy(object):
         # YOUR CODE HERE >>>>>>
         # probs = ???
         # <<<<<<<<
-
+	w_f1=tf.nn.tanh(tf.matmul(self._observations,tf.Variable(tf.random_normal([in_dim,hidden_dim], stddev=0.3)))+tf.Variable(tf.zeros([hidden_dim])))
+	probs=tf.nn.softmax(tf.matmul(w_f1,tf.Variable(tf.random_normal([hidden_dim,out_dim], stddev=0.3)))+tf.Variable(tf.zeros([out_dim])))
         # --------------------------------------------------
         # This operation (variable) is used when choosing action during data sampling phase
         # Shape of probs: [1, n_actions]
@@ -71,7 +72,8 @@ class CategoricalPolicy(object):
         # YOUR CODE HERE >>>>>>
         # surr_loss = ???
         # <<<<<<<<
-
+	surr_loss=-tf.reduce_mean(tf.mul(log_prob,self._advantages))
+	
         grads_and_vars = self._opt.compute_gradients(surr_loss)
         train_op = self._opt.apply_gradients(grads_and_vars, name="train_op")
 
