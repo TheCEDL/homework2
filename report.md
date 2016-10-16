@@ -28,7 +28,7 @@ solution: <br>
 
 #problem 5
 The policy gradient has high variance. <br>
-If we subtract a baselne from policy gradient, this way can reduce variance. (with some bias) <br> <br>
+If we subtract a baselne from policy gradient, we can reduce variance by doing this way. (with some bias) <br> <br>
 
 with baseline <br>
 ![image](https://github.com/chang810249/homework2/blob/master/with_baseline.jpg)
