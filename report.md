@@ -28,8 +28,13 @@ solution: <br>
 
 #problem 5
 The policy gradient has high variance. <br>
-If we subtract a baselne from policy gradient, this way can reduce variance. (with some bias) <br>
+If we subtract a baselne from policy gradient, this way can reduce variance. (with some bias) <br> <br>
 
+with baseline <br>
+![image](https://github.com/chang810249/homework2/blob/master/with_baseline.jpg)
+
+without baseline <br>
+![image](https://github.com/chang810249/homework2/blob/master/without_baseline.jpg)
 #problem 6
 We use a discounted reward. <br>
 This method is the weighted sum of all rewards afterwards,
