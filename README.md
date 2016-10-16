@@ -1,6 +1,28 @@
 # Homework2 - Policy Gradient 
 Please complete each homework for each team, and <br>
 mention who contributed which parts in your report.
+這次作業我們每個人都有自己寫完code,連結如下
+
+周育潤
+
+https://github.com/zenspam/homework2
+
+鄭乃嘉
+
+https://github.com/nccheng/homework2
+
+翁慶年
+
+https://github.com/cning/CEDL
+
+Reprot contribution
+
+Problem1&2 : 周育潤,鄭乃嘉
+
+Problem3&4 : 賴筱婷
+
+Problem5&6 : 翁慶年
+
 
 # Introduction
 In this assignment, we will solve the classic control problem - CartPole.
