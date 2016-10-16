@@ -71,17 +71,18 @@
 |<img src="https://github.com/brade31919/homework2/blob/master/pic/with_baseline_10.png" width="700"> |<img src="https://github.com/brade31919/homework2/blob/master/pic/without_baseline_10.png" width="700"> |
 |<img src="https://github.com/brade31919/homework2/blob/master/pic/with_baseline_std.png" width="700"> |<img src="https://github.com/brade31919/homework2/blob/master/pic/without_baseline_std.png" width="700">|
 
-   In each case of problem 5, we re-conduct 10 training process to get statistical result. The upper part of the block is the average return plot of 10 experiments. It is quite obvious that the case without baseline substracted has larger variation during different training process. To prove our observation, we plot the standard deviation during the training process in the lower part of the block. The center curve is the mean of 10 training processes and the vertical line is the std ( variance^0.5) of each step. As the plot shows us, if we don't substract the baseline, we'll get larger std during training!
-   For detailed explanation, we record all the returns and rewards in each single path and calculate its variance. We show the result in the table below
+    In each case of problem 5, we re-conduct 10 training process to get statistical result. The upper part of the block is the average return plot of 10 experiments. It is quite obvious that the case without baseline substracted has larger variation during different training process. To prove our observation, we plot the standard deviation during the training process in the lower part of the block. The center curve is the mean of 10 training processes and the vertical line is the std ( variance^0.5) of each step. As the plot shows us, if we don't substract the baseline, we'll get larger std during training!
+    For detailed explanation, we record all the returns and rewards in each single path and calculate its variance. We show the result in the table below
    
 | |Substract baseline|Without substract baseline|
 |---|---|---|
 |returns|542.5|587.1|
 |advantages|117|587.1|
 
-If we compare the return of the 2 cases, there is no significant difference. Nevertheless, if we compare the advantages(a=r-b), the case with baseline substraction has a much lower variance.
+   
+    If we compare the return of the 2 cases, there is no significant difference. Nevertheless, if we compare the advantages(a=r-b), the case with baseline substraction has a much lower variance.
 
-  * **Problem 6:**
+ * **Problem 6:**
   
     In each path, the action performed in latter stages will be discounted exponantially. As a result, in spite of substracting baseline from the average returns, the actions in the latter stage have less influence on the learning process. By doing this, it's like we always encourage and discourage half of the actions. This might help us to control the policy gradient. 
 
