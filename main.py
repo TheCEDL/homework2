@@ -92,6 +92,7 @@ Use baseline to reduce the variance of our gradient estimate.
 
 1. Fill in the function `process_paths` of class `PolicyOptimizer` below.
 """
+import pdb
 class PolicyOptimizer(object):
     def __init__(self, env, policy, baseline, n_iter, n_episode, path_length, discount_rate=.99):
         self.policy = policy
@@ -126,13 +127,14 @@ class PolicyOptimizer(object):
 
     def process_paths(self, paths):
         for p in paths:
+            # `p["rewards"]` is a matrix contains the rewards of each timestep in a sample path
+            r = util.discount_cumsum(p["rewards"], self.discount_rate)
+
             if self.baseline != None:
                 b = self.baseline.predict(p)
             else:
-                b = 0
+                b = np.zeros(len(r))
             
-            # `p["rewards"]` is a matrix contains the rewards of each timestep in a sample path
-            r = util.discount_cumsum(p["rewards"], self.discount_rate)
             
             """
             Problem 4:
@@ -164,16 +166,25 @@ class PolicyOptimizer(object):
         )
 
     def train(self):
+        all_avg_return = []
+        all_max_return = []
+        all_min_return = []
         for i in range(1, self.n_iter + 1):
             paths = []
             for _ in range(self.n_episode):
                 paths.append(self.sample_path())
             data = self.process_paths(paths)
             loss = self.policy.train(data["observations"], data["actions"], data["advantages"])
-            avg_return = np.mean([sum(p["rewards"]) for p in paths])
+            all_return = [sum(p["rewards"]) for p in paths]
+            avg_return = np.mean(all_return)
             print("Iteration {}: Average Return = {}".format(i, avg_return))
             
             # CartPole-v0 defines "solving" as getting average reward of 195.0 over 100 consecutive trials.
+            all_avg_return.append(avg_return)
+            all_max_return.append(max(all_return))
+            all_min_return.append(min(all_return))
+            #pdb.set_trace()
+
             if avg_return >= 195:
                 print("Solve at {} iterations, which equals {} episodes.".format(i, i*100))
                 break
@@ -181,12 +192,17 @@ class PolicyOptimizer(object):
             if self.baseline != None:
                 self.baseline.fit(paths)
 
+        import pickle
+        with open('loss.pkl', 'wb') as output:
+            pickle.dump([all_avg_return, all_max_return, all_min_return], output)
+
 
 n_iter = 200
 n_episode = 100
 path_length = 200
 discount_rate = 0.99
 baseline = LinearFeatureBaseline(env.spec)
+#baseline = None
 
 po = PolicyOptimizer(env, policy, baseline, n_iter, n_episode, path_length,
                      discount_rate)
