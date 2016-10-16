@@ -31,7 +31,7 @@ The policy gradient has high variance. <br>
 If we subtract a baselne from policy gradient, this way can reduce variance. (with some bias) <br>
 
 #problem 6
-We use a discount reward. <br>
+We use a discounted reward. <br>
 This method is the weighted sum of all rewards afterwards,
 but the later rewards are less important. <br>
 One good method is to “standardize” these returns <br>
