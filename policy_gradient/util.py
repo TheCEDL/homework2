@@ -21,10 +21,14 @@ Sample solution is about 1~7 lines.
 
 def discount_cumsum(x, discount_rate):
     # YOUR CODE HERE >>>>>>
+    # The sequence of x should be [t, t+1, t+2], so the accumulated discounted reward should be
+    #  [t + (rate^1)*(t+1) + (rate^2)*(t+2), (t+1) + (rate^1)*(t+2), t+2]
+    # 
+    # For example: x = [1, 2, 3], rate = 0.9:
+    #  [1 + (0.9^1)*2 + (0.9^2)*3, 2 + (0.9^1)*3, 3] = [5.23, 4.7, 1]
     dis_rw = [x[-1]]
     for i in range(1, len(x)):
-        # add the current time step discounted reward with the previous one
-        dis_rw.insert(0, x[-i] * (discount_rate**i) + dis_rw[0])
+        dis_rw.insert(0, dis_rw[-i] * discount_rate + x[-i-1])
 
     return dis_rw
 
