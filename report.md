@@ -1,5 +1,5 @@
 # Policy gradient report
-Member: 廖元宏(102061137), 莊景堯(102061145)
+Member: 廖元宏(102061137), 莊景堯(102061145)   
 Implement a simple agent with REINFORCE algorithm, which uses the MC sampling and policy gradient.   
 
 ## Problem 1~4
