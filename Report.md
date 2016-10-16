@@ -62,7 +62,7 @@
 
   In problem 5~6, we need to discuss the effect of having baseline substracted
   
-  * **Problem 5:**
+   * **Problem 5:**
     
     here we compare the result with and without substracting baseline:
     
