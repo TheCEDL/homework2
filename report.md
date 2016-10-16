@@ -4,8 +4,8 @@ Implement a simple agent with REINFORCE algorithm, which uses the MC sampling an
 ## Problem 1~4
 
 - Problem 1: construct a simple two layer FC layer for policy prediction 
-
-```
+Here we use 2-layer neural network to represent the policy. Make sure you add softmax layer to represent probability distribution.
+```python
 h1 = tf.contrib.layers.fully_connected(self._observations, num_outputs=hidden_dim, activation_fn=tf.tanh)   
 h1 = tf.contrib.layers.fully_connected(self._observations, num_outputs=hidden_dim, activation_fn=tf.tanh)   
 h2 = tf.contrib.layers.fully_connected(h1, num_outputs=out_dim, activation_fn=None)
@@ -14,15 +14,15 @@ probs = tf.nn.softmax(h2)
 Use a simple two-layer perceptron to embed state to action space
 
 - Problem 2: surrogate loss
-
+Since the optimizer in Tensorflow only support minimizing loss (gradient descent), so we simply add a minus sign to represent **gradient ascent**.
+```python
+surr_loss = -tf.reduce_mean(tf.mul(log_prob, self._advantages))
 ```
-surr_loss = tf.reduce_mean(tf.mul(log_prob, self._advantages))
-```
-Compute the surrogate loss and use optimizer to maximize it.   
 
 - Problem 3: accumulated reward
+Construct a simple for-loop to calculate the accumulated discounted from the end of the game to the start.
 
-```
+```python
 def discount_cumsum(x, discount_rate):
 	discounted_r = np.zeros(len(x))
   	num_r = len(x)
@@ -34,7 +34,7 @@ def discount_cumsum(x, discount_rate):
 
 - Problem 4: Advantage function
 
-```
+```python
 a = r - b
 ```
 where a is the advantage function, r is the accumulated reward, and b is the predicted baseline.
@@ -55,7 +55,7 @@ This figure implies the variance of the case with and without baseline. I run ea
 
 ## Problem 6
 
-The reseaon why we need to standardize the advantage function is that when we calculate the accumulated reward, the immediate reward that we get is exponentially discounted by the discounted factor. This action in latter stage can't learn effeciently. So, If we standardize the advantage function over time steps, it's expected that we always encourage and discourage half of actions (since we substract the mean). 
+The reseaon why we need to standardize the advantage function is that when we calculate the accumulated reward, the immediate reward that we get is exponentially discounted by the discounted factor. This action in latter stage can't learn effeciently. So, If we standardize the advantage function over time steps, in this way we’re always encouraging and discouraging roughly half of the performed actions. Mathematically you can also interpret these tricks as a way of controlling the variance of the policy gradient estimator.
 
 ## Reference
 
