@@ -62,8 +62,11 @@
 
   In problem 5~6, we need to discuss the effect of having baseline substracted
   
-  * Substract baseline from average return:
-  
-  * Without substracting baseline:
+  * Problem 5:
+    
+    here we compare the result with and without substract baseline:
+    |Without baseline|With baseline|
+    |---|---|
+    |
   
    
