@@ -1,6 +1,8 @@
 # Homework2 - Policy Gradient Report
 By NTHUCS Undergrad Mark, 董晉東, 102000002
 
+### I run the code from main.py
+
 ## Problem 1: construct a neural network to represent policy
 Given the hint:<br>
 > 1. The hidden layer should be fully-connected and have size `hidden_dim`.<br>
