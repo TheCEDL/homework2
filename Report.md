@@ -28,7 +28,7 @@ Then, write a report about your findings. (with figures is better)
 不過從圖中(Fig 1)我們還是可以看出來，雖然一開始有baseline(紅)的return比較小，但是他還是可以花比較少的iteration收斂<br>
 ![Fig. 1](https://github.com/CEDL739/homework2/blob/master/reward(b).png)<br>
 　　　　　　　　　　　　　　　　　　　　　　**Fig .1** With/without baseline <br>
-但是我們覺得最重要的是最一開始的return，如果一開始的return很高的話，就可以在很少的iteration內收斂<br>
+但是我們覺得最重要的是最一開始的initial weight，如果一開始的return很高的話，就可以在很少的iteration內收斂<br>
 
 ## Problem 6
 ```
