@@ -6,8 +6,7 @@ Implement a simple agent with REINFORCE algorithm, which uses the MC sampling an
 
 - Problem 1: construct a simple two layer FC layer for policy prediction 
 Here we use 2-layer neural network to represent the policy. Make sure you add softmax layer to represent probability distribution.
-```python
-h1 = tf.contrib.layers.fully_connected(self._observations, num_outputs=hidden_dim, activation_fn=tf.tanh)   
+```python  
 h1 = tf.contrib.layers.fully_connected(self._observations, num_outputs=hidden_dim, activation_fn=tf.tanh)   
 h2 = tf.contrib.layers.fully_connected(h1, num_outputs=out_dim, activation_fn=None)
 probs = tf.nn.softmax(h2)
