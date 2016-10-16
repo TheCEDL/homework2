@@ -151,7 +151,8 @@ class PolicyOptimizer(object):
 
             p["returns"] = r
             p["baselines"] = b
-            p["advantages"] = (a - a.mean()) / (a.std() + 1e-8) # normalize
+            p["advantages"] = a
+            #p["advantages"] = (a - a.mean()) / (a.std() + 1e-8) # normalize
 
         obs = np.concatenate([ p["observations"] for p in paths ])
         actions = np.concatenate([ p["actions"] for p in paths ])
@@ -169,18 +170,26 @@ class PolicyOptimizer(object):
         all_avg_return = []
         all_max_return = []
         all_min_return = []
+        all_std_return = [] 
         for i in range(1, self.n_iter + 1):
             paths = []
             for _ in range(self.n_episode):
                 paths.append(self.sample_path())
             data = self.process_paths(paths)
+            # keep the standard deviation
+            std_return = np.std(data["advantages"])
+            # re-normalize to match the original implementation
+            data["advantages"] = (data["advantages"] - data["advantages"].mean()) / (data["advantages"].std() + 1e-8) # normalize
+
             loss = self.policy.train(data["observations"], data["actions"], data["advantages"])
             all_return = [sum(p["rewards"]) for p in paths]
             avg_return = np.mean(all_return)
+
             print("Iteration {}: Average Return = {}".format(i, avg_return))
             
             # CartPole-v0 defines "solving" as getting average reward of 195.0 over 100 consecutive trials.
             all_avg_return.append(avg_return)
+            all_std_return.append(std_return)
             all_max_return.append(max(all_return))
             all_min_return.append(min(all_return))
             #pdb.set_trace()
@@ -193,8 +202,13 @@ class PolicyOptimizer(object):
                 self.baseline.fit(paths)
 
         import pickle
-        with open('loss.pkl', 'wb') as output:
-            pickle.dump([all_avg_return, all_max_return, all_min_return], output)
+        if self.baseline != None:
+            with open('wbl.pkl', 'wb') as output:
+                pickle.dump([all_avg_return, all_std_return, all_max_return, all_min_return], output)
+
+        else:
+            with open('wobl.pkl', 'wb') as output:
+                pickle.dump([all_avg_return, all_std_return, all_max_return, all_min_return], output)
 
 
 n_iter = 200
