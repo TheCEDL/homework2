@@ -37,8 +37,8 @@ without baseline <br>
 ![image](https://github.com/chang810249/homework2/blob/master/without_baseline.jpg)
 
 Although the variance with baseline is lower than without baseline, the effect isn't obvious. <br>
-Maybe the baseline is linear, the effect is not good. <br>
-If we use a better baseline (non linear), maybe we can get better result.
+Because the baseline is linear, the effect is not good. <br>
+If we use a better baseline (non linear), maybe we could get a better result.
 
 #problem 6
 We use a discounted reward. <br>
