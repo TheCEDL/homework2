@@ -60,10 +60,13 @@ a = r - b
 
 ## Problem 5: remove baseline and compare the variance/performance
 Theoretically, removing baseline should increase the variance and decrease the performance. However, this task depends highly on the initial values, so the result is not too obvious. I ran the test for dozens of times to get a result where the policy gradient with baseline is better.<br>
-The figures below are return values with and without baseline.<br>
+The figures below are return values with and without baseline, we can see that the performance is better with baseline (converge at less iterations).<br>
 <img src="https://github.com/markakisdong/homework2/blob/master/return_w_baseline.png" width="420">
-<img src="https://github.com/markakisdong/homework2/blob/master/return_wo_baseline.png" width="420">
+<img src="https://github.com/markakisdong/homework2/blob/master/return_wo_baseline.png" width="420"><br>
 
+And for the variance, there are huge difference between the model with baseline and the model without baseline, shown in below:<br>
+<img src="https://github.com/markakisdong/homework2/blob/master/std_comparison.png" width="600"><br>
+The variance of the model without baseline is much larger than that of the model with baseline.
 
 ## Problem 6: why we need to normalize the advantages
 The normalization steps can help the network learns efficiently by reducing the high variances between each accumulated reward, and can learn faster and more stable.
