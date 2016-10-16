@@ -48,7 +48,7 @@
         sum += x[i]*(discount_rate**exp)
         acc_sum[i]=sum
 
-    return acc_sum
+    return np.asarray(acc_sum)
    ```
  * **Problem 4:**
  
