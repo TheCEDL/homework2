@@ -67,3 +67,6 @@ The figures below are return values with and without baseline.<br>
 
 ## Problem 6: why we need to normalize the advantages
 The normalization steps can help the network learns efficiently by reducing the high variances between each accumulated reward, and can learn faster.
+
+## Reference
+[David Silver's Slide - Policy Gradient](http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Teaching_files/pg.pdf)
