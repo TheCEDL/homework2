@@ -52,10 +52,21 @@ def discount_cumsum(x, discount_rate):
 
 ## Problem 4: use baseline to reduce the variance of our gradient estimate
 We can see how to reduce variance from baseline in David Silver's slides:<br>
-![reduce_variance_from_baseline]()
+![reduce_variance_from_baseline](https://github.com/markakisdong/homework2/blob/master/reduce_variance_from_baseline.png)<br>
 So the answer is simply:
 ```python
 a = r - b
 ```
 
-## Problem 5: 
+## Problem 5: remove baseline and compare the variance/performance
+Theoretically, removing baseline should decrease the performance, but here we only perform a very simple RL task, and this task dependes highly on the initial values, so the result is not too obvious. I ran the test for dozens of times to finally get a result where the policy gradient with baseline is better.<br>
+The figures below are return values with and without baseline.<br>
+<img src="https://github.com/markakisdong/homework2/blob/master/return_w_baseline.png" width="420">
+<img src="https://github.com/markakisdong/homework2/blob/master/return_wo_baseline.png" width="420">
+
+
+## Problem 6: why we need to normalize the advantages
+The normalization steps can help the network learns efficiently by reducing the high variances between each accumulated reward, and can learn faster.
+
+## Reference
+[David Silver's Slide - Policy Gradient](http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Teaching_files/pg.pdf)
