@@ -27,7 +27,12 @@ class CategoricalPolicy(object):
         Sample solution is about 2~4 lines.
         """
         # YOUR CODE HERE >>>>>>
-        # probs = ???
+        W1 = tf.Variable(tf.random_normal([in_dim, hidden_dim]))
+        b1 = tf.Variable(tf.zeros([hidden_dim]))
+        W2 = tf.Variable(tf.random_normal([hidden_dim, out_dim]))
+        b2 = tf.Variable(tf.zeros([out_dim]))
+        output1 = tf.nn.tanh(tf.matmul(self._observations, W1) + b1)
+        probs = tf.nn.softmax(tf.matmul(output1, W2) + b2)
         # <<<<<<<<
 
         # --------------------------------------------------
@@ -69,7 +74,7 @@ class CategoricalPolicy(object):
         Sample solution is about 1~3 lines.
         """
         # YOUR CODE HERE >>>>>>
-        # surr_loss = ???
+        surr_loss = -tf.reduce_mean(tf.mul(log_prob, self._advantages))
         # <<<<<<<<
 
         grads_and_vars = self._opt.compute_gradients(surr_loss)
@@ -98,3 +103,9 @@ class CategoricalPolicy(object):
     def train(self, observations, actions, advantages):
         loss, _ = self._sess.run([self._loss_op, self._train_op], feed_dict={self._observations:observations, self._actions:actions, self._advantages:advantages})
         return loss
+
+    def test(self, observation):
+        assert observation.shape[0] == 1
+        action_probs = self._sess.run(self._act_op, feed_dict={self._observations: observation})
+        idx = np.argmax(action_probs)
+        return idx
