@@ -65,8 +65,9 @@
   * Problem 5:
     
     here we compare the result with and without substract baseline:
-    |Without baseline|With baseline|
-    |---|---|
-    |
+    
+|Without baseline|With baseline|
+|---|---|
+|<img src="https://github.com/brade31919/homework2/blob/master/pic/with_baseline_10.png" width="700"> |<img src="https://github.com/brade31919/homework2/blob/master/pic/without_baseline_10.png" width="700"> |
   
    
