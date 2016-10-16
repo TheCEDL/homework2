@@ -2,61 +2,23 @@
 Please complete each homework for each team, and <br>
 mention who contributed which parts in your report.
 
-# Introduction
-In this assignment, we will solve the classic control problem - CartPole.
+# Our report of this assignment
+We present our report as a <a href="CEDL_HW2_Report.pdf">pdf file</a>.
 
-<img src="https://cloud.githubusercontent.com/assets/7057863/19025154/dd94466c-8946-11e6-977f-2db4ce478cf3.gif" width="400" height="200" />
+# Problem 5
+### Average_return_with_baseline.png
+![with B](Average_return_with_baseline.png "Average return with baseline")
+### Average_return_without_baseline.png
+![without B](Average_return_without_baseline.png "Average return without baseline")
 
-CartPole is an environment which contains a pendulum attached by an un-actuated joint to a cart, 
-and the goal is to prevent it from falling over. You can apply a force of +1 or -1 to the cart.
-A reward of +1 is provided for every timestep that the pendulum remains upright.
+  上兩圖中的藍色線為Average Return值，而黑色線則表示Stardard Deviation範圍，上圖是有在Policy Gradient中加入Baseline，而下圖則無，可以看到Standar Deviation值具有明顯差異，換算則Variance的話，有加入Baseline大約可以減少Variance約300～400左右，而在Variance值減少的情況下，原本可預期減少iteration數，在實驗中也曾測到Iteration數減少約10～20，但是因為每次執行的結果都不同，所以這裡給的數值只是大概值。
 
-# Setup
-* OpenAI gym
-* TensorFlow
-* Numpy 
-* Scipy
-* IPython Notebook
+# Problem 6
+  針對Advantage進行Normalization的話能夠穩定Rewards中的variance大小的影響，進一步讓Iteration數趨於穩定，原預期此一步驟可讓Gradient趨於穩定，然而經多次實驗後卻發現Iteration數量不減反增，加入Normalization僅能讓加入Baseline的因素影響減少而已，因此判定Normalization可讓Training過程穩定。
 
-**If you already have some of above libraries installed, try to manage the dependencies by yourself.**
+# Team members and contribution
+- 姓名：<a href="https://github.com/Timforce">李冠毅</a>　學號：104064510 <br>
+負責內容：數據圖，實驗討論，環境設置
 
-If you are using a new environment (may be virtual), the preferred approach for installing above dependencies is to use [Anaconda](https://www.continuum.io/downloads), which is a Python distribution that includes many of the most popular Python packages for science, math, engineering and data analysis.
-
-1. **Install Anaconda**: Follow the instructions on the [Anaconda download site](https://www.continuum.io/downloads).
-2. **Install TensorFlow**: See [anaconda section](https://www.tensorflow.org/versions/r0.11/get_started/os_setup.html#anaconda-installation) of TensorFlow installation page.
-3. **Install OpenAI gym**: Follow the official installation documents [here](https://gym.openai.com/docs).
-
-# Prerequisites
-If you are unfamiliar with Numpy or IPython, you should read materials from [CS231n](http://cs231n.github.io/):
-* [Numpy tutorial](http://cs231n.github.io/python-numpy-tutorial/)
-* [IPython tutorial](http://cs231n.github.io/ipython-tutorial/) 
-
-Also, knowing the basics of TensorFlow is required to complete this assignment.
-
-For introductory material on TensorFlow, see
-* [MNIST For ML Beginners](https://www.tensorflow.org/versions/r0.11/tutorials/mnist/beginners/index.html) from official site
-* [Tutorial Video](https://www.youtube.com/watch?v=l6K-MFgIEjc&t=3334s) from [Stanford CS224D](http://cs224d.stanford.edu/syllabus.html)
-
-Feel free to skip these materials if you are already familiar with these libraries.
-
-# How to Start
-1. **Start IPython**: After you clone this repository and install all the dependencies, you should start the IPython notebook server from the home directory
-2. **Open the assignment**: Open ``HW2_Policy_Graident.ipynb``, and it will walk you through completing the assignment.
-
-# To-Do
-* [**+20**] Construct a 2-layer neural network to represent policy
-* [**+30**] Compute the surrogate loss
-* [**+20**] Compute the accumulated discounted rewards at each timestep
-* [**+10**] Use baseline to reduce the variance
-* [**+10**] Modify the code and write a report to compare the variance and performance before and after adding baseline (with figures is better)
-* [**+10**] In function `process_paths` of class `PolicyOptimizer`, why we need to normalize the advantages?
-  i.e., what's the usage of this line: 
-  
-  `p["advantages"] = (a - a.mean()) / (a.std() + 1e-8)`
-  
-  Include the answer in your report
-
-# Other
-* Office hour 2-3 pm in 資電館 with [YenChen Lin](http://yclin.me/).
-* Due on Oct. 17 before class.
-
+- 姓名：<a href="https://github.com/gjlnnv">李季紘</a>　學號：(交大)0556083 <br>
+負責內容：程式設計，實驗討論，資料收集
