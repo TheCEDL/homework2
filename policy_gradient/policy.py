@@ -28,6 +28,13 @@ class CategoricalPolicy(object):
         """
         # YOUR CODE HERE >>>>>>
         # probs = ???
+        fc_w1 = tf.get_variable("fc_w1",[in_dim, hidden_dim])
+        fc_b1 = tf.get_variable("fc_b1", [hidden_dim])
+        fc_w2 = tf.get_variable("fc_w2", [hidden_dim, out_dim])
+        fc_b2 = tf.get_variable("fc_b2", [out_dim])
+        fc1 = tf.nn.tanh(tf.matmul(self._observations, fc_w1) + fc_b1)
+        fc2 = tf.matmul(fc1, fc_w2) + fc_b2
+        probs = tf.nn.softmax(fc2)
         # <<<<<<<<
 
         # --------------------------------------------------
@@ -69,6 +76,7 @@ class CategoricalPolicy(object):
         Sample solution is about 1~3 lines.
         """
         # YOUR CODE HERE >>>>>>
+        surr_loss = -tf.reduce_mean(log_prob*self._advantages)
         # surr_loss = ???
         # <<<<<<<<
 
