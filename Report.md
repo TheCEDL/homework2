@@ -62,7 +62,7 @@
 
   In problem 5~6, we need to discuss the effect of having baseline substracted
   
-  * Problem 5:
+  * **Problem 5:**
     
     here we compare the result with and without substracting baseline:
     
@@ -81,7 +81,7 @@
 
 If we compare the return of the 2 cases, there is no significant difference. Nevertheless, if we compare the advantages(a=r-b), the case with baseline substraction has a much lower variance.
 
-  * Problem 6:
+  * **Problem 6:**
   
     In each path, the action performed in latter stages will be discounted exponantially. As a result, in spite of substracting baseline from the average returns, the actions in the latter stage have less influence on the learning process. By doing this, it's like we always encourage and discourage half of the actions. This might help us to control the policy gradient. 
 
