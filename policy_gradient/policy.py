@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import pdb
 
 class CategoricalPolicy(object):
     def __init__(self, in_dim, out_dim, hidden_dim, optimizer, session):
@@ -27,15 +28,15 @@ class CategoricalPolicy(object):
         Sample solution is about 2~4 lines.
         """
         # YOUR CODE HERE >>>>>>
-        # probs = ???
+		# Andrew
+        h1 = tf.contrib.layers.fully_connected(self._observations, num_outputs=hidden_dim, activation_fn=tf.tanh)
+        h2 = tf.contrib.layers.fully_connected(h1, num_outputs=out_dim, activation_fn=None)
+        probs = tf.nn.softmax(h2)	# (None,out_dim)
         # <<<<<<<<
-
         # --------------------------------------------------
         # This operation (variable) is used when choosing action during data sampling phase
         # Shape of probs: [1, n_actions]
-
         act_op = probs[0, :]
-
         # --------------------------------------------------
         # Following operations (variables) are used when updating model
         # Shape of probs: [n_timestep_per_iter, n_actions]
@@ -57,7 +58,6 @@ class CategoricalPolicy(object):
 
         # Add 1e-8 to `probs_vec` so as to prevent log(0) error
         log_prob = tf.log(probs_vec + 1e-8)
-
         """
         Problem 2:
 
@@ -69,12 +69,13 @@ class CategoricalPolicy(object):
         Sample solution is about 1~3 lines.
         """
         # YOUR CODE HERE >>>>>>
-        # surr_loss = ???
+        surr_loss = tf.reduce_mean(tf.mul(log_prob, self._advantages))
         # <<<<<<<<
 
-        grads_and_vars = self._opt.compute_gradients(surr_loss)
-        train_op = self._opt.apply_gradients(grads_and_vars, name="train_op")
-
+        #grads_and_vars = self._opt.compute_gradients(surr_loss)
+        #train_op = self._opt.apply_gradients(grads_and_vars, name="train_op")
+		
+        train_op  =self._opt.minimize(-surr_loss)
         # --------------------------------------------------
         # This operation (variable) is used when choosing action during data sampling phase
         self._act_op = act_op
