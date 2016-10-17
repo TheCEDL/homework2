@@ -19,7 +19,8 @@ Problem 3:
 Sample solution is about 1~7 lines.
 """
 
-# def discount_cumsum(x, discount_rate):
+def discount_cumsum(x, discount_rate):
     # YOUR CODE HERE >>>>>>
     # return ???
+    return lfilter([1], [1, -discount_rate], x[::-1], axis=0)[::-1]
     # <<<<<<<<
