@@ -2,61 +2,46 @@
 Please complete each homework for each team, and <br>
 mention who contributed which parts in your report.
 
-# Introduction
-In this assignment, we will solve the classic control problem - CartPole.
 
-<img src="https://cloud.githubusercontent.com/assets/7057863/19025154/dd94466c-8946-11e6-977f-2db4ce478cf3.gif" width="400" height="200" />
+# Problem 1
 
-CartPole is an environment which contains a pendulum attached by an un-actuated joint to a cart, 
-and the goal is to prevent it from falling over. You can apply a force of +1 or -1 to the cart.
-A reward of +1 is provided for every timestep that the pendulum remains upright.
+1. Use TensorFlow to construct a 2-layer neural network as stochastic policy.
+2. Assign the output of the softmax layer to the variable `probs`.
 
-# Setup
-* OpenAI gym
-* TensorFlow
-* Numpy 
-* Scipy
-* IPython Notebook
+h1 = tf.contrib.layers.fully_connected(self._observations, hidden_dim, activation_fn=tf.tanh)
+probs = tf.contrib.layers.fully_connected(h1, out_dim, activation_fn=tf.nn.softmax)
 
-**If you already have some of above libraries installed, try to manage the dependencies by yourself.**
+# Problem 2
+1. Trace the code above
+2. Currently, variable `self._advantages` represents accumulated discounted rewards
+from each timestep to the end of an episode
+3. Compute surrogate loss and assign it to variable `surr_loss`
 
-If you are using a new environment (may be virtual), the preferred approach for installing above dependencies is to use [Anaconda](https://www.continuum.io/downloads), which is a Python distribution that includes many of the most popular Python packages for science, math, engineering and data analysis.
+surr_loss = -tf.reduce_mean(log_prob * self._advantages, name="loss_op")
 
-1. **Install Anaconda**: Follow the instructions on the [Anaconda download site](https://www.continuum.io/downloads).
-2. **Install TensorFlow**: See [anaconda section](https://www.tensorflow.org/versions/r0.11/get_started/os_setup.html#anaconda-installation) of TensorFlow installation page.
-3. **Install OpenAI gym**: Follow the official installation documents [here](https://gym.openai.com/docs).
+# Problem 3
+1. Read the example provided in HW2_Policy_Graident.ipynb
+2. Uncomment below function and implement it.
 
-# Prerequisites
-If you are unfamiliar with Numpy or IPython, you should read materials from [CS231n](http://cs231n.github.io/):
-* [Numpy tutorial](http://cs231n.github.io/python-numpy-tutorial/)
-* [IPython tutorial](http://cs231n.github.io/ipython-tutorial/) 
+return lfilter([1], [1, -discount_rate], x[::-1], axis=0)[::-1]
 
-Also, knowing the basics of TensorFlow is required to complete this assignment.
+# Problem 4
+1. Variable `b` is the reward predicted by our baseline
+2. Use it to reduce variance and then assign the result to the variable `a`
 
-For introductory material on TensorFlow, see
-* [MNIST For ML Beginners](https://www.tensorflow.org/versions/r0.11/tutorials/mnist/beginners/index.html) from official site
-* [Tutorial Video](https://www.youtube.com/watch?v=l6K-MFgIEjc&t=3334s) from [Stanford CS224D](http://cs224d.stanford.edu/syllabus.html)
+a = r - b
 
-Feel free to skip these materials if you are already familiar with these libraries.
+# Problem 5
+上圖中為Policy Gradient為使用Baseline(上圖)和沒使用Baseline(下圖)的 Average Return 值，觀察結果Standard Deviation 可以發現有使用Baseline的結果比較好，且收斂次數較少(約少10次)。並且我們可以利用線性函數預測狀態軌跡並擬合數據，來達到比較好的效果，因此在每次迭代運算，我們使用最新獲得的軌跡來作為預測訓練基準函數(LinearFeatureBaseline)，在這次的作業中的範例中，因只有正負一兩種情況，較好用線性預測，因此效果不錯。
 
-# How to Start
-1. **Start IPython**: After you clone this repository and install all the dependencies, you should start the IPython notebook server from the home directory
-2. **Open the assignment**: Open ``HW2_Policy_Graident.ipynb``, and it will walk you through completing the assignment.
 
-# To-Do
-* [**+20**] Construct a 2-layer neural network to represent policy
-* [**+30**] Compute the surrogate loss
-* [**+20**] Compute the accumulated discounted rewards at each timestep
-* [**+10**] Use baseline to reduce the variance
-* [**+10**] Modify the code and write a report to compare the variance and performance before and after adding baseline (with figures is better)
-* [**+10**] In function `process_paths` of class `PolicyOptimizer`, why we need to normalize the advantages?
-  i.e., what's the usage of this line: 
-  
-  `p["advantages"] = (a - a.mean()) / (a.std() + 1e-8)`
-  
-  Include the answer in your report
+# Problem 6
+我們經過實驗發現，因為learning rate會受到獎勵值範圍影響，我們可以利用在計算梯度前進行加入Normalization來降低這個依賴使Gradient 趨於穩定。
 
-# Other
-* Office hour 2-3 pm in 資電館 with [YenChen Lin](http://yclin.me/).
-* Due on Oct. 17 before class.
+## Participation
+| Name | Do |
+| :---: | :---: |
+| 郭士鈞 | 撰寫主體綱要 |
+| 黃冠諭 | 撰寫內容細節、排版 |
+| 蘇翁台 | 撰寫內容細節 |
 
