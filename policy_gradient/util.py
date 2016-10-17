@@ -19,7 +19,13 @@ Problem 3:
 Sample solution is about 1~7 lines.
 """
 
-# def discount_cumsum(x, discount_rate):
+def discount_cumsum(x, discount_rate):
     # YOUR CODE HERE >>>>>>
-    # return ???
+    n_time = len(x)
+    reward = n_time*[0]
+    for t in range(n_time):
+        for _t in range(t,n_time):
+            reward[t] += discount_rate**(_t-t) * x[_t]
+
+    return reward
     # <<<<<<<<
