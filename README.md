@@ -41,7 +41,7 @@ probs = tf.contrib.layers.fully_connected(h1, out_dim, activation_fn=tf.nn.softm
 ## Participation
 | Name | Do |
 | :---: | :---: |
-| 郭士鈞 | 撰寫主體綱要 |
-| 黃冠諭 | 撰寫內容細節、排版 |
-| 蘇翁台 | 撰寫內容細節 |
+| 郭士鈞 | 撰修內容細節 |
+| 黃冠諭 | 撰修內容細節 |
+| 蘇翁台 | 撰寫主體綱要 |
 
