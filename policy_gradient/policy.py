@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import math
 
 class CategoricalPolicy(object):
     def __init__(self, in_dim, out_dim, hidden_dim, optimizer, session):
@@ -28,6 +29,9 @@ class CategoricalPolicy(object):
         """
         # YOUR CODE HERE >>>>>>
         # probs = ???
+        initializer = tf.truncated_normal_initializer(stddev=1./math.sqrt(float(in_dim)))
+        hidden1 = tf.contrib.layers.fully_connected(self._observations, hidden_dim, activation_fn=tf.tanh, weights_initializer=initializer)
+        probs = tf.contrib.layers.fully_connected(hidden1, out_dim, activation_fn=tf.nn.softmax, weights_initializer=initializer)
         # <<<<<<<<
 
         # --------------------------------------------------
@@ -70,6 +74,7 @@ class CategoricalPolicy(object):
         """
         # YOUR CODE HERE >>>>>>
         # surr_loss = ???
+        surr_loss = -tf.reduce_mean(log_prob * self._advantages, name="loss_op")
         # <<<<<<<<
 
         grads_and_vars = self._opt.compute_gradients(surr_loss)
