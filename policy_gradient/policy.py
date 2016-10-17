@@ -27,7 +27,14 @@ class CategoricalPolicy(object):
         Sample solution is about 2~4 lines.
         """
         # YOUR CODE HERE >>>>>>
+        # W = tf.Variable(tf.random_normal([in_dim, hidden_dim], stddev=0.01), name='W')
+        # b = tf.Variable(tf.zeros([hidden_dim]), name='b' )
+        # probs = tf.nn.softmax(tf.tanh(tf.matmul(self._observations, W) + b), name=None)
+        with tf.device('/cpu:0'):
+            h1 = tf.contrib.layers.fully_connected(self._observations, hidden_dim, activation_fn=tf.tanh)
+            probs = tf.contrib.layers.fully_connected(h1, out_dim, activation_fn=tf.nn.softmax)
         # probs = ???
+        
         # <<<<<<<<
 
         # --------------------------------------------------
@@ -69,6 +76,7 @@ class CategoricalPolicy(object):
         Sample solution is about 1~3 lines.
         """
         # YOUR CODE HERE >>>>>>
+        surr_loss = -tf.reduce_mean(tf.mul(log_prob, self._advantages))
         # surr_loss = ???
         # <<<<<<<<
 
