@@ -40,9 +40,9 @@ Performance without adding baseline converge faster(69 iteraion v.s 81 iteration
 * Observations:
     * Initial value of policy is highly related to the convergence time. If it's a good initial value, then it reaches avg_return >= 195 faster.
     * Because we're trying to determine the best action for a state, we need a baseline to compare from. In theory, training with baseline should converge faster than without baseline; however, for this game, it's opposite. Our guess is that this game is too simple.
-    * Next, we fix the iteration to 200, (It means that we don't stop training even the avg_return is more than 195), as following:
-        <img src="./with_baselne.png" width="640">
-        <img src="./without_baselne.png" width="640">
+    * Next, we fix the iteration to 200, (It means that we don't stop training even the avg_return is more than 195), as following:   
+        <img src="./With_baseline.png" width="640">
+        <img src="./Without_baseline.png" width="640">   
       We found that roughly after 100 iteration, the avg_return with baseline almost converges to 200, and avg_return without baseline may cause some vibration. We thought it's because the variance of training without baseline is larger than with baseline, so it can't converge perfectly.
 
 ## Problem 6
