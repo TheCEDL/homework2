@@ -32,11 +32,14 @@ probs = tf.contrib.layers.fully_connected(h1, out_dim, activation_fn=tf.nn.softm
 `a = r - b`
 
 # Problem 5
-<img src=/pic.png width=500 />
+<img src=/pic.PNG width=500 />
+
 上圖中為Policy Gradient為使用Baseline(上圖)和沒使用Baseline(下圖)的 Average Return 值，觀察結果Standard Deviation 可以發現有使用Baseline的結果比較好，且收斂次數較少(約少10次)。並且我們可以利用線性函數預測狀態軌跡並擬合數據，來達到比較好的效果，因此在每次迭代運算，我們使用最新獲得的軌跡來作為預測訓練基準函數(LinearFeatureBaseline)，在這次的作業中的範例中，因只有正負一兩種情況，較好用線性預測，因此效果不錯。
 
 
 # Problem 6
+<img src=/pic2.PNG width=500 />
+
 我們經過實驗發現，因為learning rate會受到獎勵值範圍影響，我們可以利用在計算梯度前進行加入Normalization來降低這個依賴使Gradient 趨於穩定。
 
 ## Participation
