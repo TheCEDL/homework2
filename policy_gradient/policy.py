@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import math
 
 class CategoricalPolicy(object):
     def __init__(self, in_dim, out_dim, hidden_dim, optimizer, session):
@@ -26,10 +27,25 @@ class CategoricalPolicy(object):
 
         Sample solution is about 2~4 lines.
         """
-        # YOUR CODE HERE >>>>>>
-        # probs = ???
-        # <<<<<<<<
-
+        
+        # the shape of 'probs' should be [n_batch,n_actions]
+        # My Code Here >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>        
+        #1.1st hidden layer is fully-connected layer , size = hidden_dim
+        #2.2nd hidden layer is softmax layer
+        #2.Activation function = tanh for the 1st hidden layer
+        #3.Add softmax layer after the output of 1st hidden layer 
+        #4.Assign the output of softmax layer the 'probs'
+        # Create weight and bias for 1st hidden layers
+        w_fc1 = tf.Variable(tf.truncated_normal([in_dim, hidden_dim], stddev=1.0/math.sqrt(float(in_dim))))
+        b_fc1 = tf.Variable(tf.zeros([hidden_dim]))
+        # Create weight and bias for softmax layer 
+        w_st = tf.Variable(tf.truncated_normal([hidden_dim,out_dim],stddev=1.0/math.sqrt(float(hidden_dim))))
+        b_st = tf.Variable(tf.zeros([out_dim]))
+        # Define 1st hidden layer
+        fc1 = tf.tanh(tf.matmul(self._observations,w_fc1)+b_fc1)
+        # Assign the softmax value to probs
+        probs = tf.nn.softmax(tf.matmul(fc1,w_st)+b_st)
+        # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         # --------------------------------------------------
         # This operation (variable) is used when choosing action during data sampling phase
         # Shape of probs: [1, n_actions]
@@ -44,12 +60,13 @@ class CategoricalPolicy(object):
         #    e.g., if we have n_timestep_per_iter = 2, then we'll get [0, 2]
         #    0 is the first index of action for timestep t = 0, and 2 is the first index of action for timestep t = 1
         action_idxs_flattened = tf.range(0, tf.shape(probs)[0]) * tf.shape(probs)[1]
+        #action_idx_flattened = range(0~T-1) * n_actions = [0 1 2 3 ... n_batch-1] * n_action
 
         # 2. Add index of the action chosen at each timestep
         #    e.g., if index of the action chosen at timestep t = 0 is 1, and index of the action
         #    chosen at timestep = 1 is 0, then `action_idxs_flattened` == [0, 2] + [1, 0] = [1, 2]
         action_idxs_flattened += self._actions
-
+        
         # 3. Gather the probability of action at each timestep
         #    e.g., tf.reshape(probs, [-1]) == [0.1, 0.9, 0.8, 0.2]
         #    since action_idxs_flattened == [1, 2], we'll get [0.9, 0.8], which is the probability when we choose each action
@@ -68,9 +85,16 @@ class CategoricalPolicy(object):
 
         Sample solution is about 1~3 lines.
         """
-        # YOUR CODE HERE >>>>>>
-        # surr_loss = ???
-        # <<<<<<<<
+        # MY CODE HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        #1.self._advantages contains Ri for all timestep 
+        #2.log_prob contains log(pi(a|s)) for all timestep  
+        #3.Element wile product of Ri and log_prob
+        #4.Sum over Time , Divide by T to get surrogate loss
+        #5.I don't know why it works when I multiply -1 at the end of surr_loss.
+        #surr_loss = tf.reduce_mean(log_prob*self._advantages)*(-1)
+        
+        surr_loss = tf.reduce_mean(tf.mul(log_prob,self._advantages))*(-1)
+        # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
         grads_and_vars = self._opt.compute_gradients(surr_loss)
         train_op = self._opt.apply_gradients(grads_and_vars, name="train_op")
