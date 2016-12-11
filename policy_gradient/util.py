@@ -23,10 +23,10 @@ Sample solution is about 1~7 lines.
     # YOUR CODE HERE >>>>>>
 def discount_cumsum(x, discount_rate):
     len_x = len(x)
-    discount_x = np.zeros(len_x)
+    array_discount_rate = np.zeros(len_x)
     for i in range(len_x):
-        discount_x[i] = x[i] * discount_rate**i
-    discount_x =np.cumsum(discount_x[::-1])
-    return discount_x
+        array_discount_rate[i] = x[i] * discount_rate**i
+    array_discount_rate =np.cumsum(array_discount_rate)
+    return array_discount_rate[::-1]
     # return ???
     # <<<<<<<<
