@@ -21,5 +21,12 @@ Sample solution is about 1~7 lines.
 
 # def discount_cumsum(x, discount_rate):
     # YOUR CODE HERE >>>>>>
+def discount_cumsum(x, discount_rate):
+    len_x = len(x)
+    array_discount_rate = np.zeros(len_x)
+    for i in range(len_x):
+        array_discount_rate[i] = x[i] * discount_rate**i
+    array_discount_rate =np.cumsum(array_discount_rate)
+    return array_discount_rate[::-1]
     # return ???
     # <<<<<<<<
